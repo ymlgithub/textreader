@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="18sp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开发者:杨明亮"
+        android:textColor="@android:color/black"
+        android:textIsSelectable="true"
+        android:textSize="24sp" />
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="复制文字即可朗读。"-->
+<!--            android:textIsSelectable="true"-->
+<!--            android:textSize="24sp" />-->
+
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textIsSelectable="true"-->
+    <!--        android:textSize="24sp" />-->
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="1"
+        android:background="@drawable/textview_border"
+        android:gravity="top"
+        android:hint="@string/instructions"
+        android:inputType="textMultiLine"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--        <ImageButton-->
+        <!--            android:layout_width="0sp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:onClick="readImage"-->
+        <!--            android:src="@mipmap/camera_line" />-->
+
+        <ImageButton
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="paste"
+            android:src="@mipmap/clipboard_line" />
+
+        <!--        <ImageButton-->
+        <!--            android:layout_width="0sp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:onClick="copy"-->
+        <!--            android:src="@mipmap/file_copy_line" />-->
+
+        <ImageButton
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="clear"
+            android:src="@mipmap/delete_back_2_line" />
+
+        <ImageButton
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="startRead"
+            android:src="@mipmap/play_circle_line" />
+
+        <!--        <ImageButton-->
+        <!--            android:layout_width="0sp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:onClick="cancelRead"-->
+        <!--            android:src="@mipmap/pause_circle_line" />-->
+
+        <ImageButton
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="cancelRead"
+            android:src="@mipmap/stop_circle_line" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="readImage"
+            android:padding="16sp"
+            android:src="@mipmap/camera_line" />
+    </LinearLayout>
+</LinearLayout>
