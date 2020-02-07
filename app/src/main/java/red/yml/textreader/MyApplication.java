@@ -2,6 +2,7 @@ package red.yml.textreader;
 
 import android.app.Application;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class MyApplication extends Application {
         initClipboard();
         initTTS();
         initOCR();
+        initNotification();
     }
 
     private void initClipboard() {
@@ -108,6 +110,10 @@ public class MyApplication extends Application {
             }
         };
         tts.setOnUtteranceProgressListener(utteranceProgressListener);
+    }
+
+    private void initNotification() {
+        startService(new Intent(getApplicationContext(), KeepAliveService.class));
     }
 
     @Override
