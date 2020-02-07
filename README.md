@@ -2,7 +2,7 @@
 为文盲、视障人群朗读文本。
 
 ## 下载
-百度OCR服务每天的免费配额有限，因此不提供apk文件下载，有需要的请自行申请百度OCR服务授权文件并编译。
+[朗读.apk](https://raw.githubusercontent.com/ymlgithub/textreader/master/app/release/%E6%9C%97%E8%AF%BB.apk)
 
 ## 使用说明
 <p>
