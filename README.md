@@ -1,5 +1,5 @@
 # textreader
-为文盲、视障人群朗读文本。
+为文盲人群朗读文本；也可以帮助TA们确认语音输入法输入的文字是否正确，达到朗读、输入文字的目的。
 
 ## 下载
 [朗读.apk](https://raw.githubusercontent.com/ymlgithub/textreader/master/app/release/%E6%9C%97%E8%AF%BB.apk)
