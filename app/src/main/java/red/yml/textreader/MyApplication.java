@@ -3,6 +3,7 @@ package red.yml.textreader;
 import android.app.Application;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class MyApplication extends Application {
+
     private static final String TAG = "MyApplication";
     private ClipboardManager.OnPrimaryClipChangedListener clipChangedListener;
     private ClipboardManager manager;
@@ -113,7 +115,10 @@ public class MyApplication extends Application {
     }
 
     private void initNotification() {
-        startService(new Intent(getApplicationContext(), KeepAliveService.class));
+        Log.d(TAG, "initNotification: " + Build.VERSION.SDK_INT);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            startService(new Intent(getApplicationContext(), KeepAliveService.class));
+        }
     }
 
     @Override

@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.baidu.ocr.demo.FileUtil;
 import com.baidu.ocr.sdk.OCR;
@@ -23,6 +27,7 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private EditText et;
+
     private static final String TAG = "MainActivity";
 
     private static final int REQUEST_CODE_GENERAL = 105;
@@ -47,11 +52,39 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_VATINVOICE = 131;
     private static final int REQUEST_CODE_CUSTOM = 132;
 
+    private static final int REQUEST_CODE_OVERLAY = 201;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         et = findViewById(R.id.editText);
+        startHiddenOverlayService();
+    }
+
+    /**
+     * 设置悬浮窗
+     */
+    private void startHiddenOverlayService() {
+        Log.d(TAG, "startHiddenOverlayService: " + Build.VERSION.SDK_INT);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            Log.d(TAG, "startFloatingService: 未获得悬浮窗权限");
+            Toast.makeText(this, "请授予悬浮窗权限！", Toast.LENGTH_SHORT);
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, REQUEST_CODE_OVERLAY);
+            return;
+        }
+        if (!HiddenOverlayService.isOverlayStart) {
+            Log.d(TAG, "startFloatingService: 有悬浮窗权限");
+            startService(new Intent(MainActivity.this, HiddenOverlayService.class));
+        }
     }
 
     @Override
@@ -95,23 +128,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK) {
-            // 获取调用参数
-            String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
-            // 通过临时文件获取拍摄的图片
-            String filePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
-            // 判断拍摄类型（通用，身份证，银行卡等）
-//        if (requestCode == REQUEST_CODE_GENERAL && resultCode == Activity.RESULT_OK) {
-//            // 判断是否是身份证正面
-//            if (CameraActivity.CONTENT_TYPE_ID_CARD_FRONT.equals(contentType)) {
-//                // 获取图片文件调用sdk数据接口，见数据接口说明
-//            }
-//        }
-            if (requestCode == REQUEST_CODE_ACCURATE_BASIC && resultCode == Activity.RESULT_OK) {
+        switch (requestCode) {
+            case REQUEST_CODE_ACCURATE_BASIC:
                 Log.d(TAG, "onActivityResult: 通用文字识别（高精度版）");
-                recognizeAccurateBasic(data, filePath);
-            }
+                if (resultCode == RESULT_OK) {
+//                    // 获取调用参数
+//                    String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
+                    // 通过临时文件获取拍摄的图片
+                    String filePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+                    recognizeAccurateBasic(data, filePath);
+                }
+                break;
+            case REQUEST_CODE_OVERLAY:
+                Log.d(TAG, "onActivityResult: 悬浮窗权限申请");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+                    Log.d(TAG, "onActivityResult: 悬浮窗权限获取失败");
+                    Toast.makeText(this, "悬浮窗权限获取失败", Toast.LENGTH_LONG).show();
+                } else {
+                    Log.d(TAG, "onActivityResult: 悬浮窗权限获取成功");
+                    Toast.makeText(this, "悬浮窗权限获取成功", Toast.LENGTH_SHORT).show();
+                    if (!HiddenOverlayService.isOverlayStart)
+                        startService(new Intent(MainActivity.this, HiddenOverlayService.class));
+                }
+                break;
+            default:
+                break;
         }
+
+//            // 获取调用参数
+//            String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
+//            // 通过临时文件获取拍摄的图片
+//            String filePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
+//            // 判断拍摄类型（通用，身份证，银行卡等）
+////        if (requestCode == REQUEST_CODE_GENERAL && resultCode == Activity.RESULT_OK) {
+////            // 判断是否是身份证正面
+////            if (CameraActivity.CONTENT_TYPE_ID_CARD_FRONT.equals(contentType)) {
+////                // 获取图片文件调用sdk数据接口，见数据接口说明
+////            }
+////        }
+//            if (requestCode == REQUEST_CODE_ACCURATE_BASIC && resultCode == Activity.RESULT_OK) {
+//                Log.d(TAG, "onActivityResult: 通用文字识别（高精度版）");
+//                recognizeAccurateBasic(data, filePath);
+//            }
     }
 
     private void recognizeAccurateBasic(Intent data, String filePath) {

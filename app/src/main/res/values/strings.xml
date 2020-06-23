@@ -9,4 +9,6 @@
         用法5:点击停止按钮可以停止播放。\n
         用法6:点击删除按钮可以显示本说明。\n
     </string>
+    <string name="btn_on">&#xf205;</string>
+    <string name="btn_off">&#xf204;</string>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="red.yml.textreader">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -7,6 +8,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--    悬浮窗权限-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 
     <application
         android:name=".MyApplication"
@@ -16,10 +20,16 @@
         android:roundIcon="@mipmap/read"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--安卓10以前-->
         <service
             android:name=".KeepAliveService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
+        <!--安卓10及之后-->
+        <service
+            android:name=".HiddenOverlayService"
+            android:enabled="true"
+            android:exported="false" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

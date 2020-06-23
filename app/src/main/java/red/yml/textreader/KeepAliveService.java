@@ -25,7 +25,7 @@ public class KeepAliveService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: ");
-        Notification.Builder builder = new Notification.Builder(this.getApplicationContext()); //获取一个Notification构造器
+        Notification.Builder builder = new Notification.Builder(this.getApplicationContext(), "KeepAliveService"); //获取一个Notification构造器
         Intent nfIntent = new Intent(this, MainActivity.class);
 
         builder.setContentIntent(PendingIntent.getActivity(this, 0, nfIntent, 0))
@@ -36,7 +36,7 @@ public class KeepAliveService extends Service {
                 .setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
 
         Notification notification = builder.build(); // 获取构建好的Notification
-        notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
+//        notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
         startForeground((int) System.currentTimeMillis(), notification);
         return super.onStartCommand(intent, flags, startId);
