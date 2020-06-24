@@ -25,7 +25,6 @@ import android.widget.TextView;
  */
 public class HiddenOverlayService extends Service {
     private static final String TAG = "HiddenOverlayService";
-    public static boolean isOverlayStart = false;
 
     //    private static int FLAGS_ON = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
 //            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -50,7 +49,7 @@ public class HiddenOverlayService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!isOverlayStart) {
+        if (!MyApplication.isOverlayStart) {
             showFloatingWindow();
         }
         return super.onStartCommand(intent, flags, startId);
@@ -59,7 +58,7 @@ public class HiddenOverlayService extends Service {
     @SuppressLint("InflateParams")
     private void showFloatingWindow() {
         Log.d(TAG, "showFloatingWindow: ");
-        isOverlayStart = true;
+        MyApplication.isOverlayStart = true;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(getApplicationContext())) {
             // 获取WindowManager服务
@@ -172,7 +171,7 @@ public class HiddenOverlayService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        isOverlayStart = false;
+        MyApplication.isOverlayStart = false;
     }
 
     /**

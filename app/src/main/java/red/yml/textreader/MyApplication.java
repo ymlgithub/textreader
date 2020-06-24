@@ -24,6 +24,8 @@ public class MyApplication extends Application {
     private ClipboardManager manager;
     private TextToSpeech tts;
     private UtteranceProgressListener utteranceProgressListener;
+    public static boolean isOverlayStart = false;
+
 
     @Override
     public void onCreate() {

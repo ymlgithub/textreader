@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_CODE_OVERLAY);
             return;
         }
-        if (!HiddenOverlayService.isOverlayStart) {
+        if (!MyApplication.isOverlayStart) {
             Log.d(TAG, "startFloatingService: 有悬浮窗权限");
             startService(new Intent(MainActivity.this, HiddenOverlayService.class));
         }
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.d(TAG, "onActivityResult: 悬浮窗权限获取成功");
                     Toast.makeText(this, "悬浮窗权限获取成功", Toast.LENGTH_SHORT).show();
-                    if (!HiddenOverlayService.isOverlayStart)
+                    if (!MyApplication.isOverlayStart)
                         startService(new Intent(MainActivity.this, HiddenOverlayService.class));
                 }
                 break;
