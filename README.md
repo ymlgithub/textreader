@@ -2,13 +2,20 @@
 为文盲人群朗读文本；也可以帮助TA们确认语音输入法输入的文字是否正确，达到朗读、输入文字的目的。
 
 ## 下载
-[朗读.apk](https://raw.githubusercontent.com/ymlgithub/textreader/master/app/release/%E6%9C%97%E8%AF%BB.apk)
+[朗读V2.apk（任意机型都可用）](https://raw.githubusercontent.com/ymlgithub/textreader/master/app/release/%E6%9C%97%E8%AF%BBV2.apk)
+[朗读_旧版.apk（Android 10以下机型可用）](https://raw.githubusercontent.com/ymlgithub/textreader/master/app/release/%E6%9C%97%E8%AF%BB_%E6%97%A7%E7%89%88.apk)
 
 ## 使用说明
+### Android 10以下机型
 <p>
 <img src='imgs/a.jpg' width='30%' style="display:inline;"/>
 <img src='imgs/b.jpg' width='30%' style="display:inline;"/>
 <img src='imgs/c.jpg' width='30%' style="display:inline;"/>
+</p>
+### Android 10及以上机型
+由于Android 10及以上机型无法后台监听剪贴板，因此相比Android 10以下机型新增全局可拖动的悬浮窗，复制文字后需要点击一下悬浮窗才能朗读。
+<p>
+<img src='imgs/d.jpg' width='30%' style="display:inline;"/>
 </p>
 
 ## for 开发者
