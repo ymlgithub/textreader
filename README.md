@@ -15,7 +15,7 @@
 ### Android 10及以上机型
 由于Android 10及以上机型无法后台监听剪贴板，因此相比Android 10以下机型新增全局可拖动的悬浮窗，复制文字后需要点击一下悬浮窗才能朗读。
 <p>
-<img src='imgs/d.jpg' width='30%' style="display:inline;"/>
+<img src='imgs/d.png' width='30%' style="display:inline;"/>
 </p>
 
 ## for 开发者
