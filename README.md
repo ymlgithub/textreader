@@ -3,6 +3,7 @@
 
 ## 下载
 [朗读V2.apk（任意机型都可用）](https://raw.githubusercontent.com/ymlgithub/textreader/master/app/release/%E6%9C%97%E8%AF%BBV2.apk)
+
 [朗读_旧版.apk（Android 10以下机型可用）](https://raw.githubusercontent.com/ymlgithub/textreader/master/app/release/%E6%9C%97%E8%AF%BB_%E6%97%A7%E7%89%88.apk)
 
 ## 使用说明
