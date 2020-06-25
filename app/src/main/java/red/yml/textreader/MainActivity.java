@@ -2,7 +2,6 @@ package red.yml.textreader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (!MyApplication.isOverlayStart) {
             Log.d(TAG, "startFloatingService: 有悬浮窗权限");
-            startService(new Intent(MainActivity.this, HiddenOverlayService.class));
+            startService(new Intent(MainActivity.this, SpeakerOverlayService.class));
         }
     }
 
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "onActivityResult: 悬浮窗权限获取成功");
                     Toast.makeText(this, "悬浮窗权限获取成功", Toast.LENGTH_SHORT).show();
                     if (!MyApplication.isOverlayStart)
-                        startService(new Intent(MainActivity.this, HiddenOverlayService.class));
+                        startService(new Intent(MainActivity.this, SpeakerOverlayService.class));
                 }
                 break;
             default:

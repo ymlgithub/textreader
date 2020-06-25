@@ -11,4 +11,5 @@
     </string>
     <string name="btn_on">&#xf205;</string>
     <string name="btn_off">&#xf204;</string>
+    <string name="speaker">&#xf028;</string>
 </resources>

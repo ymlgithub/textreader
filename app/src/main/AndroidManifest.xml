@@ -27,7 +27,7 @@
             android:exported="false" />
         <!--安卓10及之后-->
         <service
-            android:name=".HiddenOverlayService"
+            android:name=".SpeakerOverlayService"
             android:enabled="true"
             android:exported="false" />
 
