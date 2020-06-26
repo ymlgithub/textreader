@@ -147,7 +147,7 @@ public class SpeakerOverlayService extends Service {
                 case MotionEvent.ACTION_MOVE:
                     int nowX = (int) event.getRawX();
                     int nowY = (int) event.getRawY();
-                    Log.d(TAG, String.format("(%d,%d)", nowX, nowY));
+//                    Log.d(TAG, String.format("(%d,%d)", nowX, nowY));
                     int movedX = nowX - x;
                     int movedY = nowY - y;
                     x = nowX;

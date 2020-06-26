@@ -7,10 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--    悬浮窗权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 悬浮窗权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".MyApplication"
@@ -20,18 +20,19 @@
         android:roundIcon="@mipmap/read"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--安卓10以前-->
+        <!-- 安卓10以前 -->
         <service
             android:name=".KeepAliveService"
             android:enabled="true"
-            android:exported="false" />
-        <!--安卓10及之后-->
+            android:exported="false" /> <!-- 安卓10及之后 -->
         <service
             android:name=".SpeakerOverlayService"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -17,24 +17,32 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.baidu.idcardquality.IDcardQualityProcess;
+import com.baidu.idl.util.FileUtil;
 import com.baidu.ocr.ui.R;
 import com.baidu.ocr.ui.crop.CropView;
 import com.baidu.ocr.ui.crop.FrameOverlayView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class CameraActivity extends AppCompatActivity {
+    private static final String TAG = "CameraActivity";
 
     public static final String KEY_OUTPUT_FILE_PATH = "outputFilePath";
     public static final String KEY_CONTENT_TYPE = "contentType";
@@ -73,7 +81,7 @@ public class CameraActivity extends AppCompatActivity {
         @Override
         public boolean onRequestPermission() {
             ActivityCompat.requestPermissions(CameraActivity.this,
-                    new String[] {Manifest.permission.CAMERA},
+                    new String[]{Manifest.permission.CAMERA},
                     PERMISSIONS_REQUEST_CAMERA);
             return false;
         }
@@ -203,11 +211,11 @@ public class CameraActivity extends AppCompatActivity {
     private void initNative(final String token) {
         CameraNativeHelper.init(CameraActivity.this, token,
                 new CameraNativeHelper.CameraNativeInitCallback() {
-            @Override
-            public void onError(int errorCode, Throwable e) {
-                cameraView.setInitNativeStatus(errorCode);
-            }
-        });
+                    @Override
+                    public void onError(int errorCode, Throwable e) {
+                        cameraView.setInitNativeStatus(errorCode);
+                    }
+                });
     }
 
     private void showTakePicture() {
@@ -252,7 +260,7 @@ public class CameraActivity extends AppCompatActivity {
                     != PackageManager.PERMISSION_GRANTED) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     ActivityCompat.requestPermissions(CameraActivity.this,
-                            new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             PERMISSIONS_EXTERNAL_STORAGE);
                     return;
                 }
@@ -427,7 +435,7 @@ public class CameraActivity extends AppCompatActivity {
         }
         return result;
     }
-    
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -468,7 +476,29 @@ public class CameraActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_PICK_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = data.getData();
-                cropView.setFilePath(getRealPathFromURI(uri));
+                String path = null;
+                File tmpFile = null;
+                try {
+                    if (uri != null) {
+                        String suffix = getRealPathFromURI(uri);
+                        Log.d(TAG, "onActivityResult: " + suffix);
+                        suffix = suffix.substring(suffix.lastIndexOf("/"));
+                        Log.d(TAG, "onActivityResult: " + suffix);
+                        InputStream inputStream = getContentResolver().openInputStream(uri);
+                        tmpFile = new File(getCacheDir().getAbsolutePath() + suffix);
+                        writeFile(inputStream, tmpFile);
+                        path = tmpFile.getAbsolutePath();
+                        Log.d(TAG, "onActivityResult: " + path);
+                    }
+                } catch (FileNotFoundException e) {
+                    Log.e(TAG, "onActivityResult: ", e);
+                } finally {
+                    cropView.setFilePath(path);
+                    if (tmpFile != null) {
+                        tmpFile.delete();
+                    }
+                }
+//                cropView.setFilePath(getRealPathFromURI(uri));
                 showCrop();
             } else {
                 cameraView.getCameraControl().resume();
@@ -498,7 +528,6 @@ public class CameraActivity extends AppCompatActivity {
 
     /**
      * 做一些收尾工作
-     *
      */
     private void doClear() {
         CameraThreadPool.cancelAutoFocusTimer();
@@ -512,5 +541,28 @@ public class CameraActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         this.doClear();
+    }
+
+    public static void writeFile(InputStream in, File file) {
+        OutputStream out = null;
+        try {
+            out = new FileOutputStream(file);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
