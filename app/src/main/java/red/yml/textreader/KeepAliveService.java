@@ -1,8 +1,11 @@
 package red.yml.textreader;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
@@ -25,7 +28,14 @@ public class KeepAliveService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: ");
-        Notification.Builder builder = new Notification.Builder(this.getApplicationContext(), "KeepAliveService"); //获取一个Notification构造器
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel channel = new NotificationChannel(TAG,"朗读",NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        Notification.Builder builder = new Notification.Builder(this.getApplicationContext(), TAG); //获取一个Notification构造器
         Intent nfIntent = new Intent(this, MainActivity.class);
 
         builder.setContentIntent(PendingIntent.getActivity(this, 0, nfIntent, 0))

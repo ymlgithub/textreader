@@ -48,16 +48,13 @@ public class SpeakerOverlayService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!MyApplication.isOverlayStart) {
-            showFloatingWindow();
-        }
+        showFloatingWindow();
         return super.onStartCommand(intent, flags, startId);
     }
 
     @SuppressLint("InflateParams")
     private void showFloatingWindow() {
         Log.d(TAG, "showFloatingWindow: ");
-        MyApplication.isOverlayStart = true;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(getApplicationContext())) {
             // 获取WindowManager服务
@@ -93,7 +90,8 @@ public class SpeakerOverlayService extends Service {
             Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
 
             // 新建悬浮窗控件
-            final View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.speaker_float_window, null);
+//            final View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.speaker_float_window, null);
+            final View view = getSpeaker();
             btnCtl = view.findViewById(R.id.btn_ctl);
 
             btnCtl.setTypeface(font);
@@ -167,7 +165,6 @@ public class SpeakerOverlayService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MyApplication.isOverlayStart = false;
     }
 
     /**
@@ -180,5 +177,9 @@ public class SpeakerOverlayService extends Service {
         Resources resources = context.getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
+    }
+
+    private View getSpeaker() {
+        return ((MyApplication) getApplication()).speaker;
     }
 }

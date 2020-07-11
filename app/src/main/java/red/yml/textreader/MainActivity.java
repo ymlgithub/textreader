@@ -59,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         et = findViewById(R.id.editText);
-        startHiddenOverlayService();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            startHiddenOverlayService();
+        }
     }
 
     /**
@@ -80,10 +82,8 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_CODE_OVERLAY);
             return;
         }
-        if (!MyApplication.isOverlayStart) {
-            Log.d(TAG, "startFloatingService: 有悬浮窗权限");
-            startService(new Intent(MainActivity.this, SpeakerOverlayService.class));
-        }
+        Log.d(TAG, "startFloatingService: 有悬浮窗权限");
+        startService(new Intent(MainActivity.this, SpeakerOverlayService.class));
     }
 
     @Override
@@ -146,8 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.d(TAG, "onActivityResult: 悬浮窗权限获取成功");
                     Toast.makeText(this, "悬浮窗权限获取成功", Toast.LENGTH_SHORT).show();
-                    if (!MyApplication.isOverlayStart)
-                        startService(new Intent(MainActivity.this, SpeakerOverlayService.class));
+                    startService(new Intent(MainActivity.this, SpeakerOverlayService.class));
                 }
                 break;
             default:

@@ -7,6 +7,8 @@ import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import com.baidu.ocr.sdk.OCR;
@@ -24,17 +26,21 @@ public class MyApplication extends Application {
     private ClipboardManager manager;
     private TextToSpeech tts;
     private UtteranceProgressListener utteranceProgressListener;
-    public static boolean isOverlayStart = false;
-
+    //    public static boolean isOverlayStart = false;
+    public View speaker = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate: 启动");
+        Log.d(TAG, "onCreate: 启动 | SDK_INT=" + Build.VERSION.SDK_INT);
         initClipboard();
         initTTS();
         initOCR();
-        initNotification();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            initNotification();
+        } else {
+            speaker = LayoutInflater.from(getApplicationContext()).inflate(R.layout.speaker_float_window, null);
+        }
     }
 
     private void initClipboard() {
@@ -117,10 +123,8 @@ public class MyApplication extends Application {
     }
 
     private void initNotification() {
-        Log.d(TAG, "initNotification: " + Build.VERSION.SDK_INT);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            startService(new Intent(getApplicationContext(), KeepAliveService.class));
-        }
+        Log.d(TAG, "initNotification: ");
+        startService(new Intent(getApplicationContext(), KeepAliveService.class));
     }
 
     @Override
