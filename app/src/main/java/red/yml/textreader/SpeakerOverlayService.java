@@ -91,6 +91,10 @@ public class SpeakerOverlayService extends Service {
 
             // 新建悬浮窗控件
 //            final View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.speaker_float_window, null);
+            if (getSpeaker() != null){// 避免重复显示
+                return;
+            }
+            ((MyApplication) getApplication()).speaker = LayoutInflater.from(getApplicationContext()).inflate(R.layout.speaker_float_window, null);
             final View view = getSpeaker();
             btnCtl = view.findViewById(R.id.btn_ctl);
 

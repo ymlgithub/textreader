@@ -38,8 +38,6 @@ public class MyApplication extends Application {
         initOCR();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             initNotification();
-        } else {
-            speaker = LayoutInflater.from(getApplicationContext()).inflate(R.layout.speaker_float_window, null);
         }
     }
 
