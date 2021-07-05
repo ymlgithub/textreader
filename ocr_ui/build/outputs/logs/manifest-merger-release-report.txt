@@ -1,0 +1,81 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+	package
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:5:11-37
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:1-26:12
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:4:11-69
+uses-permission#android.permission.CAMERA
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:7:5-64
+	android:name
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:7:22-62
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:8:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:9:5-80
+	android:name
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:9:22-78
+uses-feature#android.hardware.camera2.full
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:10:5-65
+	android:name
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:10:19-63
+uses-feature#android.hardware.camera
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:11:5-59
+	android:name
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:11:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:12:5-70
+	android:name
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:12:19-67
+application
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:14:5-24:19
+	android:supportsRtl
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:16:18-44
+	android:label
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:15:18-50
+	android:vmSafeMode
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:17:18-43
+	android:allowBackup
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:14:18-44
+	android:theme
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:18:18-49
+activity#com.baidu.ocr.ui.camera.CameraActivity
+ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:20:9-22:85
+	android:configChanges
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:21:19-65
+	android:theme
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:22:19-83
+	android:name
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml:20:19-72
+uses-sdk
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+		ADDED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml
+		INJECTED from D:\Codes\textreader\ocr_ui\src\main\AndroidManifest.xml

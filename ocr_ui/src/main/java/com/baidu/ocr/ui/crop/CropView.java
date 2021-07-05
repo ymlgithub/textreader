@@ -3,14 +3,11 @@
  */
 package com.baidu.ocr.ui.crop;
 
-import java.io.File;
 import java.io.IOException;
 
 import com.baidu.ocr.ui.util.ImageUtil;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -19,7 +16,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.ExifInterface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -27,7 +23,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 public class CropView extends View {
-    private static final String TAG = "CropView";
 
     public CropView(Context context) {
         super(context);
@@ -54,15 +49,9 @@ public class CropView extends View {
             return;
         }
 
-        Log.d(TAG, "setFilePath: " + getContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE));
-
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-
-
         Bitmap original = BitmapFactory.decodeFile(path, options);
-
-//        Log.d(TAG, String.format("setFilePath:(%d,%d) ", original.getWidth(),original.getHeight()));
 
         try {
             ExifInterface exif = new ExifInterface(path);
@@ -75,13 +64,6 @@ public class CropView extends View {
 
             // 图片太大会导致内存泄露，所以在显示前对图片进行裁剪。
             int maxPreviewImageSize = 2560;
-
-            if (options.outWidth * options.outHeight < maxPreviewImageSize * maxPreviewImageSize) {
-                original = BitmapFactory.decodeFile(path);
-                this.bitmap = original;
-                return;
-            }
-            Log.d(TAG, "setFilePath: Compressing...");
 
             int min = Math.min(options.outWidth, options.outHeight);
             min = Math.min(min, maxPreviewImageSize);
@@ -100,15 +82,11 @@ public class CropView extends View {
             options.inJustDecodeBounds = false;
             this.bitmap = BitmapFactory.decodeFile(path, options);
         } catch (IOException e) {
-            Log.e(TAG, "setFilePath: ", e);
-            original = BitmapFactory.decodeFile(path);
+            e.printStackTrace();
             this.bitmap = original;
         } catch (NullPointerException e) {
-            Log.e(TAG, "setFilePath: ", e);
             e.printStackTrace();
         }
-//        original = BitmapFactory.decodeFile(path);
-//        this.bitmap = original;
         setBitmap(this.bitmap);
     }
 
@@ -130,8 +108,8 @@ public class CropView extends View {
     public Bitmap crop(Rect frame) {
         float scale = getScale();
 
-        float[] src = new float[]{frame.left, frame.top};
-        float[] desc = new float[]{0, 0};
+        float[] src = new float[] {frame.left, frame.top};
+        float[] desc = new float[] {0, 0};
 
         Matrix invertedMatrix = new Matrix();
         this.matrix.invert(invertedMatrix);

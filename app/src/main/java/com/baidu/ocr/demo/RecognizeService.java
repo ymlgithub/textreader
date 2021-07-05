@@ -276,6 +276,54 @@ public class RecognizeService {
         });
     }
 
+    public static void recTaxireceipt(Context ctx, String filePath, final ServiceListener listener){
+        OcrRequestParams param = new OcrRequestParams();
+        param.setImageFile(new File(filePath));
+        OCR.getInstance(ctx).recognizeTaxireceipt(param, new OnResultListener<OcrResponseResult>() {
+            @Override
+            public void onResult(OcrResponseResult result) {
+                listener.onResult(result.getJsonRes());
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                listener.onResult(error.getMessage());
+            }
+        });
+    }
+
+    public static void recVincode(Context ctx, String filePath, final ServiceListener listener){
+        OcrRequestParams param = new OcrRequestParams();
+        param.setImageFile(new File(filePath));
+        OCR.getInstance(ctx).recognizeVincode(param, new OnResultListener<OcrResponseResult>() {
+            @Override
+            public void onResult(OcrResponseResult result) {
+                listener.onResult(result.getJsonRes());
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                listener.onResult(error.getMessage());
+            }
+        });
+    }
+
+    public static void recTrainticket(Context ctx, String filePath, final ServiceListener listener){
+        OcrRequestParams param = new OcrRequestParams();
+        param.setImageFile(new File(filePath));
+        OCR.getInstance(ctx).recognizeTrainticket(param, new OnResultListener<OcrResponseResult>() {
+            @Override
+            public void onResult(OcrResponseResult result) {
+                listener.onResult(result.getJsonRes());
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                listener.onResult(error.getMessage());
+            }
+        });
+    }
+
     public static void recPassport(Context ctx, String filePath, final ServiceListener listener) {
         OcrRequestParams param = new OcrRequestParams();
         param.setImageFile(new File(filePath));
